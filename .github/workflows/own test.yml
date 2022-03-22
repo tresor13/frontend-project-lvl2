@@ -1,0 +1,8 @@
+name: own test
+on: push
+jobs:
+  my-job:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+        run: make install

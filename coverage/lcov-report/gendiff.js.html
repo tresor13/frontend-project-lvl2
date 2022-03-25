@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>50/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">92.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>50/53</span>
             </div>
         
             
@@ -107,7 +107,17 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -122,6 +132,16 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -149,13 +169,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { readFileSync } from 'fs';
-import pkg from 'lodash';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { readFileSync } from "fs";
+import pkg from "lodash";
+import yaml from "js-yaml";
 &nbsp;
 function objToString(obj) {
-  let str = '';
+  let str = "";
   const keys = Object.keys(obj);
   const values = Object.values(obj);
   for (let i = 0; i &lt; keys.length; i += 1) {
@@ -165,7 +184,17 @@ function objToString(obj) {
   return `{\n${str}}`;
 }
 &nbsp;
-const { keys, has, union } = pkg;
+const { keys, has, union, last } = pkg;
+&nbsp;
+function parsers(filePath) {
+  const fileExtension = last(filePath.split(".")).toLowerCase();
+  if (fileExtension === "json") {
+    return JSON.parse(readFileSync(filePath, "utf8"));
+  }<span class="branch-0 cbranch-no" title="branch not covered" > else if (fileExtension === "yaml" || fileExtension === "yml") {</span>
+<span class="cstat-no" title="statement not covered" >    return yaml.load(readFileSync(filePath, "utf8"));</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  return console.error("Unknown file format");</span>
+}
 &nbsp;
 function getObjcetsCompared(object1, object2) {
   const keys1 = keys(object1);
@@ -189,10 +218,8 @@ function getObjcetsCompared(object1, object2) {
 }
 &nbsp;
 export default function gendiff(filepath1, filepath2) {
-  const dataFile1 = readFileSync(filepath1, 'utf8');
-  const dataFile2 = readFileSync(filepath2, 'utf8');
-  const parsedData1 = JSON.parse(dataFile1);
-  const parsedData2 = JSON.parse(dataFile2);
+  const parsedData1 = parsers(filepath1);
+  const parsedData2 = parsers(filepath2);
   return getObjcetsCompared(parsedData1, parsedData2);
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -202,7 +229,7 @@ export default function gendiff(filepath1, filepath2) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Mar 22 2022 16:20:04 GMT+0200 (Eastern European Standard Time)
+                at Fri Mar 25 2022 16:52:32 GMT+0200 (Eastern European Standard Time)
             </div>
         <script src="prettify.js"></script>
         <script>

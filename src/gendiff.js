@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import pkg from 'lodash';
+import yaml from 'js-yaml';
 
 function objToString(obj) {
   let str = '';
@@ -12,7 +13,19 @@ function objToString(obj) {
   return `{\n${str}}`;
 }
 
-const { keys, has, union } = pkg;
+const {
+  keys, has, union, last,
+} = pkg;
+
+function parsers(filePath) {
+  const fileExtension = last(filePath.split('.')).toLowerCase();
+  if (fileExtension === 'json') {
+    return JSON.parse(readFileSync(filePath, 'utf8'));
+  } if (fileExtension === 'yaml' || fileExtension === 'yml') {
+    return yaml.load(readFileSync(filePath, 'utf8'));
+  }
+  return console.error('Unknown file format');
+}
 
 function getObjcetsCompared(object1, object2) {
   const keys1 = keys(object1);
@@ -36,9 +49,7 @@ function getObjcetsCompared(object1, object2) {
 }
 
 export default function gendiff(filepath1, filepath2) {
-  const dataFile1 = readFileSync(filepath1, 'utf8');
-  const dataFile2 = readFileSync(filepath2, 'utf8');
-  const parsedData1 = JSON.parse(dataFile1);
-  const parsedData2 = JSON.parse(dataFile2);
+  const parsedData1 = parsers(filepath1);
+  const parsedData2 = parsers(filepath2);
   return getObjcetsCompared(parsedData1, parsedData2);
 }

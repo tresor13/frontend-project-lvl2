@@ -1,13 +1,12 @@
 env:
-  node: true
   es2021: true
+  node: true
 extends:
-  - "airbnb-base"
-
+  - airbnb-base
+  - "plugin:jest/recommended"
 parserOptions:
-  ecmaVersion: 2020
+  ecmaVersion: latest
   sourceType: module
-
 rules:
   no-console: 0
   import/extensions: # FIXME: remove when rule will be adjusted for new nodejs version

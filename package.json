@@ -2,17 +2,10 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
-  "main": "gendiff.js",
+  "description": "[![Actions Status](https://github.com/tresor13/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/tresor13/frontend-project-lvl2/actions)",
+  "main": "src/index.js",
   "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {}
-  },
-  "bin": {
-    "gendiff": "bin/index.js"
+    "test": "npx jest --bail"
   },
   "repository": {
     "type": "git",
@@ -24,16 +17,24 @@
     "url": "https://github.com/tresor13/frontend-project-lvl2/issues"
   },
   "homepage": "https://github.com/tresor13/frontend-project-lvl2#readme",
-  "devDependencies": {
-    "eslint": "^8.11.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "jest": "^27.5.1"
-  },
   "dependencies": {
-    "@jest/globals": "^27.5.1",
     "commander": "^9.0.0",
     "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "make": "^0.0.0"
+  },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "devDependencies": {
+    "@jest/globals": "^27.5.1",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.1.1",
+    "jest": "^27.5.1",
+    "jest-cli": "^27.5.1",
+    "npm-check-updates": "^12.5.2",
+    "simple-git-hooks": "^2.7.0"
   }
 }

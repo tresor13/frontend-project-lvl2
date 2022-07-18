@@ -1,41 +1,41 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const stringify = (value) => {
   if (_.isObject(value) && value !== null) {
-    return "[complex value]";
+    return '[complex value]';
   }
-  if (typeof value === "string") {
+  if (typeof value === 'string') {
     return `'${value}'`;
   }
   return value;
 };
 
 const plain = (node, acc = []) => {
-  const accJoin = acc.join(".");
+  const accJoin = acc.join('.');
   switch (node.action) {
-    case "root":
+    case 'root':
       return node.children
-        .filter((child) => child.action !== "save")
+        .filter((child) => child.action !== 'save')
         .map((child) => plain(child, [...acc, child.name]))
-        .join("\n");
+        .join('\n');
 
-    case "nested":
+    case 'nested':
       return node.children
-        .filter((child) => child.action !== "save")
+        .filter((child) => child.action !== 'save')
         .map((child) => plain(child, [...acc, child.name]))
-        .join("\n");
+        .join('\n');
 
-    case "added":
+    case 'added':
       return `Property '${accJoin}' was added with value: ${stringify(
-        node.value
+        node.value,
       )}`;
 
-    case "removed":
+    case 'removed':
       return `Property '${accJoin}' was removed`;
 
-    case "updated":
+    case 'updated':
       return `Property '${accJoin}' was updated. From ${stringify(
-        node.value1
+        node.value1,
       )} to ${stringify(node.value2)}`;
 
     default:

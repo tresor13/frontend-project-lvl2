@@ -12,7 +12,7 @@ const readFile = (filename) => fs.readFileSync(filename, 'utf-8');
 const expectStylish = readFile(getFixturePath('stylish.expect.txt'));
 const expectPlain = readFile(getFixturePath('plain.expect.txt'));
 
-test.each(['yaml', 'json'])('Test format stylish (%s, %s)', (ext) => {
+test.each(['yaml', 'json'])('All formats inspection  (%s, %s)', (ext) => {
   expect(
     gendiff(
       getFixturePath(`file1.${ext}`),

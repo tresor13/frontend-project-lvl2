@@ -1,12 +1,12 @@
-import yaml from "js-yaml";
+import yaml from 'js-yaml';
 
 const parser = (obj, format) => {
   switch (format) {
-    case "yaml":
+    case 'yaml':
       return yaml.load(obj);
-    case "yml":
+    case 'yml':
       return yaml.load(obj);
-    case "json":
+    case 'json':
       return JSON.parse(obj);
     default:
       throw Error(`This if invalid is ${format}`);

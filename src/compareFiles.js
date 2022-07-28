@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const compareFiles = (file1, file2) => {
   const iter = (node1, node2) => {
@@ -7,40 +7,40 @@ const compareFiles = (file1, file2) => {
       if (!_.has(node1, key)) {
         return {
           name: key,
-          action: "added",
+          action: 'added',
           value: node2[key],
         };
       }
       if (!_.has(node2, key)) {
         return {
           name: key,
-          action: "removed",
+          action: 'removed',
           value: node1[key],
         };
       }
       if (_.isObject(node1[key]) && _.isObject(node2[key])) {
         return {
           name: key,
-          action: "nested",
+          action: 'nested',
           children: iter(node1[key], node2[key]),
         };
       }
       if (!_.isEqual(node1[key], node2[key])) {
         return {
           name: key,
-          action: "updated",
+          action: 'updated',
           value1: node1[key],
           value2: node2[key],
         };
       }
       return {
         name: key,
-        action: "save",
+        action: 'save',
         value: node1[key],
       };
     });
     return result;
   };
-  return { name: "tree", action: "root", children: iter(file1, file2) };
+  return { name: 'tree', action: 'root', children: iter(file1, file2) };
 };
 export default compareFiles;
